@@ -37,7 +37,7 @@ public class HospitalApplication {
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
-/**/
+/*MODEL MAPPER DTO TRANSITION*/
 
 
 	/**/
