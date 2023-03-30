@@ -20,14 +20,14 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+
     private String firstname;
     private String lastname;
     @Column(name = "user_email",nullable = false)
     private String email;
-    @Column(name = "user_email",nullable = false)
+    @Column(name = "user_password",nullable = false)
     private String password;
-    @Column(name = "user_email",nullable = false)
+    @Column(name = "user_Role",nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -35,12 +35,10 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return  List.of(new SimpleGrantedAuthority(userRole.name()));
     }
-
     @Override
     public String getUsername() {
         return email;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return false;
