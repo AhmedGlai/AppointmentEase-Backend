@@ -1,5 +1,6 @@
-package com.spring.hospital.config;
+package com.spring.hospital.security;
 
+import com.spring.hospital.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,5 +1,6 @@
 package com.spring.hospital;
 
+import com.spring.hospital.config.ApplicationConfig;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 @SpringBootApplication
+//@Import(ApplicationConfig.class)
 public class HospitalApplication {
 
 	public static void main(String[] args) {

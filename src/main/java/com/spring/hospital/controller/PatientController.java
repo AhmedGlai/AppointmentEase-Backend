@@ -6,6 +6,7 @@ import com.spring.hospital.service.IPatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 import java.util.List;
@@ -44,7 +45,7 @@ public class PatientController {
         PatientDTO patientDTO = patientService.getOnePatient(id);
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('PATIENT')")
     @GetMapping("")
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> patientDTOs = patientService.getPatients();

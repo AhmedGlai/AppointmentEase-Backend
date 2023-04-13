@@ -3,6 +3,7 @@ package com.spring.hospital.entity;
 import com.spring.hospital.ennumeration.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,21 +14,25 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_User")
+@Table(name="tbl_User")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
-    @Column(name = "user_email",nullable = false)
+    @Column(nullable = false)
     private String email;
-    @Column(name = "user_password",nullable = false)
+    @Column(nullable = false)
     private String password;
-    @Column(name = "user_Role",nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -39,6 +44,9 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+    @Override
+    public  String getPassword(){return password; }
     @Override
     public boolean isAccountNonExpired() {
         return false;

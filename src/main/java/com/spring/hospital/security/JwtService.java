@@ -1,4 +1,4 @@
-package com.spring.hospital.config;
+package com.spring.hospital.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -35,7 +35,7 @@ public String generateToken(
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis()+1000 * 60 * 48 ))
+            .setExpiration(new Date(System.currentTimeMillis()+ 1000 * 60 * 60 * 72 ))
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
 }
@@ -44,11 +44,12 @@ private Claims extractAllClaims(String token){
             .parserBuilder()
             .setSigningKey(getSignInKey())
             .build()
-            .parseClaimsJwt(token)
+            .parseClaimsJws(token)
             .getBody();
 }
 
 public String generateToken(UserDetails userDetails){
+    Map<String, Object> claims = new HashMap<>();
     return generateToken(new HashMap<>(),userDetails);
 }
 
