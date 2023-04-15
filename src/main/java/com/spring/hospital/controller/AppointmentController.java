@@ -27,10 +27,8 @@ public class AppointmentController {
 
     @Autowired
     private IAppointmentService appointmentService;
-
     @Autowired
     private IDoctorService doctorService;
-
     @Autowired
     private IPatientService patientService;
     @Autowired
