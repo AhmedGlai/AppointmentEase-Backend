@@ -1,5 +1,6 @@
 package com.spring.hospital.security;
 
+import com.spring.hospital.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -47,10 +46,15 @@ private Claims extractAllClaims(String token){
             .parseClaimsJws(token)
             .getBody();
 }
+    public List<String> getUserRoles(User user) {
+        return Collections.singletonList(user.getUserRole().name());
+    }
 
 public String generateToken(UserDetails userDetails){
+    User user =(User) userDetails;
     Map<String, Object> claims = new HashMap<>();
-    return generateToken(new HashMap<>(),userDetails);
+    claims.put("roles", getUserRoles(user));
+    return generateToken(claims,userDetails);
 }
 
 public boolean isTokenValid (String token, UserDetails userDetails){

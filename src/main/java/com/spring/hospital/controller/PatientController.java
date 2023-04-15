@@ -6,6 +6,7 @@ import com.spring.hospital.service.IPatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
@@ -32,20 +33,19 @@ public class PatientController {
         return new ResponseEntity<>(savedPatientDTOs, HttpStatus.CREATED);
     }
 
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<PatientDTO> getOnePatient(@PathVariable Long id) {
         PatientDTO patientDTO = patientService.getOnePatient(id);
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAuthority('PATIENT')")
     @GetMapping("")
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> patientDTOs = patientService.getPatients();
