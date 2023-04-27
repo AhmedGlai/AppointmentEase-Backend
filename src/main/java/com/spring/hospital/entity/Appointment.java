@@ -1,7 +1,6 @@
 package com.spring.hospital.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.spring.hospital.ennumeration.StatusAPT;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -24,18 +24,20 @@ public class Appointment {
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private StatusAPT statusAPT;
 
+    private String reason;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
+    @JsonBackReference("doctor")
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+    @JsonBackReference("patient")
     private Patient patient;
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
 
+
+    @JsonBackReference("consultation")
+    @OneToOne(mappedBy = "appointment")
     private Consultation consultation;
-
 }

@@ -1,5 +1,8 @@
 package com.spring.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,10 +27,17 @@ public class Doctor {
     @Column(name = "doctor_email",unique = true)
     private String email;
 
-    private String speciality;
+    @Column(name = "doctor_address")
+    private String address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Specialty specialty;
+
     @Column(name = "doctor_phone",unique = true)
     private String phone;
-    @OneToMany(mappedBy="doctor",fetch = FetchType.LAZY)
-    private Collection<Appointment> appointments;
 
+    @OneToMany(mappedBy="doctor",fetch = FetchType.LAZY)
+    @JsonManagedReference("doctor")
+    private Collection<Appointment> appointments;
 }

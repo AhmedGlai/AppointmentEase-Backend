@@ -1,9 +1,7 @@
 package com.spring.hospital.service.Implementation;
 
 import com.spring.hospital.dto.DoctorDTO;
-import com.spring.hospital.dto.PatientDTO;
 import com.spring.hospital.entity.Doctor;
-import com.spring.hospital.entity.Patient;
 import com.spring.hospital.repository.DoctorRepository;
 import com.spring.hospital.service.IDoctorService;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,4 +66,15 @@ public class DoctorService implements IDoctorService {
         Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(EntityNotFoundException::new);
         return modelMapper.map(doctor, DoctorDTO.class);
     }
+
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecialtyId(Long specialtyId) {
+        List<Doctor> doctors = doctorRepository.findBySpecialtyId(specialtyId);
+        return doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+
 }
