@@ -28,6 +28,7 @@ public class Appointment {
     private StatusAPT statusAPT;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
@@ -35,7 +36,8 @@ public class Appointment {
     @JoinColumn(name = "patient_id")
     private Patient patient;
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
-
     private Consultation consultation;
+
+
 
 }

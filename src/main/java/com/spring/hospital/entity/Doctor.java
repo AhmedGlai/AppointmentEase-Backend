@@ -17,10 +17,8 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "doctor_name")
     private String name;
-
     @Column(name = "doctor_email",unique = true)
     private String email;
 

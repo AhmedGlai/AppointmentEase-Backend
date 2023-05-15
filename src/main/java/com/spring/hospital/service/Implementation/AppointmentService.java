@@ -31,8 +31,6 @@ public class AppointmentService implements IAppointmentService {
         Appointment savedAppointment = appointmentRepository.save(appointment);
         return modelMapper.map(savedAppointment, AppointmentDTO.class);
     }
-
-
     @Override
     public AppointmentDTO editAppointment(AppointmentDTO appointmentDTO) {
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
@@ -65,6 +63,7 @@ public class AppointmentService implements IAppointmentService {
                 .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<AppointmentDTO> getAppointmentsByDoctorId(Long doctorId) {
         List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
@@ -72,6 +71,7 @@ public class AppointmentService implements IAppointmentService {
                 .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
                 .collect(Collectors.toList());
     }
+
     @Override
     public AppointmentDTO changeStatus(Long appointmentId, StatusAPT status) {
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new EntityNotFoundException("Appointment by ID: " + appointmentId + " not found"));

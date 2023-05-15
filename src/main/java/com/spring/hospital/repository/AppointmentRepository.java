@@ -1,5 +1,6 @@
 package com.spring.hospital.repository;
 
+import com.spring.hospital.dto.AppointmentDTO;
 import com.spring.hospital.ennumeration.StatusAPT;
 import com.spring.hospital.entity.Appointment;
 import com.spring.hospital.entity.Patient;

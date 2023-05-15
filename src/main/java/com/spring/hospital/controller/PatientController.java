@@ -45,7 +45,7 @@ public class PatientController {
         PatientDTO patientDTO = patientService.getOnePatient(id);
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('PATIENT')")
+    @PostAuthorize("hasAuthority('DOCTOR')")
     @GetMapping("")
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> patientDTOs = patientService.getPatients();

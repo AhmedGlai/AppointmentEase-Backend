@@ -22,6 +22,7 @@ public class Consultation {
     private Date dateConsultation;
 
     private String rapport;
+
     @OneToOne
     @JoinColumn(name = "appointment_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
