@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface DoctorRepository extends JpaRepository<Doctor,Long> {
-    Doctor findByName(String name);
+    Doctor findByFullName(String name);
     List<Doctor> findBySpecialtyId(@Param("specialtyId") Long specialtyId);
 
 }

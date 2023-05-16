@@ -25,7 +25,8 @@ public class Consultation {
     @Column(name = "rapport")
     private String rapport;
 
-    @JsonManagedReference("consultation")
+   // @JsonManagedReference("consultation")
+
     @OneToOne
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;

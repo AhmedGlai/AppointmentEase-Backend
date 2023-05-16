@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DoctorService implements IDoctorService {
     @Autowired
-    private DoctorRepository doctorRepository;
-
+    DoctorRepository doctorRepository;
     @Autowired
     private ModelMapper modelMapper;
-
     @Override
     public DoctorDTO saveDoctor(DoctorDTO doctorDTO) {
         Doctor doctor = modelMapper.map(doctorDTO, Doctor.class);

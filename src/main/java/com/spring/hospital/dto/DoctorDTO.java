@@ -6,15 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Collection;
-    @Data
+import java.util.Date;
+
+@Data
     @NoArgsConstructor
     @AllArgsConstructor
     public class DoctorDTO {
         private Long id;
-        private String name;
+        private String firstname;
+        private String lastname;
+        private Date dateOfBirth;
         private String email;
         private String phone;
         private String address;
+
         private SpecialtyDTO specialty;
     }
 

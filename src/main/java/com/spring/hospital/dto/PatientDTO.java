@@ -17,12 +17,16 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PatientDTO {
     private Long id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private LocalDate dateOfBirth;
     private String email;
     private String address;
     private String gender;
+    private String phone;
     private MedicalHistoryDTO medicalHistory;
+
+
 
 
 

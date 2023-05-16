@@ -18,14 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+
 import org.springframework.security.access.prepost.PostAuthorize;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/appointments")
-@Secured({"ADMIN", "PATIENT","DOCTOR"})
 public class AppointmentController {
 
     @Autowired
@@ -42,8 +43,6 @@ public class AppointmentController {
         appointmentService.deleteAppointment(appointmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
     @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/get")
     public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {

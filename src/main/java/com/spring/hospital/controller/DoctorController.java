@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@Secured({"ADMIN", "PATIENT","DOCTOR"})
+@Secured({"ADMIN"})
 @RequestMapping("/api/doctors")
 public class DoctorController {
 
