@@ -1,7 +1,6 @@
 package com.spring.hospital.service;
 
 import com.spring.hospital.dto.DoctorDTO;
-import com.spring.hospital.entity.Doctor;
 
 import java.util.List;
 
@@ -14,6 +13,8 @@ public interface IDoctorService {
         List<DoctorDTO>getAllDoctors();
         public List<DoctorDTO> saveDoctors(List<DoctorDTO> doctors);
         DoctorDTO getOneDoctor(Long doctorID);
+
+        List<DoctorDTO> getDoctorsBySpecialtyId(Long specialtyId);
 
 
 }

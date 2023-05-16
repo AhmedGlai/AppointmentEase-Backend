@@ -11,6 +11,5 @@ public interface IUserService {
     void deleteUser (Long userId);
     List<User> getUsers();
     public List<User> saveUsers(List<User> users);
-
     User getOneUser(Long userId);
 }

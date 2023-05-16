@@ -48,5 +48,4 @@ public class HospitalApplication {
 		return new ModelMapper();
 	}
 
-
 }

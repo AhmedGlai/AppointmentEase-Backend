@@ -18,21 +18,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+
+import org.springframework.security.access.prepost.PostAuthorize;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/appointments")
-@Secured({"ROLE_ADMIN", "ROLE_PATIENT"})
 public class AppointmentController {
 
     @Autowired
     private IAppointmentService appointmentService;
-
     @Autowired
     private IDoctorService doctorService;
-
     @Autowired
     private IPatientService patientService;
     @Autowired
@@ -43,17 +43,19 @@ public class AppointmentController {
         appointmentService.deleteAppointment(appointmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @GetMapping("")
+    @PostAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/get")
     public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
         return new ResponseEntity<>(appointmentService.getAppointments(), HttpStatus.OK);
     }
 
+    @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentDTO> getOneAppointment(@PathVariable Long appointmentId) {
         return new ResponseEntity<>(appointmentService.getOneAppointment(appointmentId), HttpStatus.OK);
     }
 
+    @PostAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<AppointmentDTO> saveAppointment(@RequestBody @NotNull AppointmentDTO appointmentDTO) {
         AppointmentDTO savedAppointment = appointmentDTO;
@@ -61,18 +63,20 @@ public class AppointmentController {
         savedAppointment = appointmentService.saveAppointment(appointmentDTO);
 
         if (savedAppointment.getStatusAPT() == StatusAPT.PENDING) {
-
-
-            // Send email to doctor
             DoctorDTO doctor = doctorService.getOneDoctor(savedAppointment.getDoctor().getId());
-            String recipient = doctor.getEmail();
-            String subject = "New Appointment";
-            String sender = "Hospital Support <support@hospital.com>";
-            String body = "A new appointment has been created and is waiting for your approval. " +
-                    "Please log in to the dashboard to accept or decline the appointment.";
-            String url = "http://localhost:8080/dashboard?appointmentId=" + savedAppointment.getId();
-            Email email = new Email(subject, recipient, sender, body, url);
-            emailService.sendEmail(email);
+
+            if (doctor != null && doctor.getEmail() != null) {
+
+                // Send email to doctor
+                String recipient = doctor.getEmail();
+                String subject = "New Appointment";
+                String sender = "Hospital Support <support@hospital.com>";
+                String body = "A new appointment has been created and is waiting for your approval. " +
+                        "Please log in to the dashboard to accept or decline the appointment.";
+                String url = "http://localhost:8080/dashboard?appointmentId=" + savedAppointment.getId();
+                Email email = new Email(subject, recipient, sender, body, url);
+                emailService.sendEmail(email);
+            }
         }
         return new ResponseEntity<>(savedAppointment, HttpStatus.CREATED);
 
@@ -89,7 +93,7 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDTO>changeStatus(@PathVariable Long appointmentId,
                                                     @RequestParam StatusAPT status) {
        AppointmentDTO appointmentDTO = appointmentService.changeStatus(appointmentId, status);
-       String message = "Your appointment with id "+appointmentId+"has been"+status.name().toLowerCase();
+       String message = "Your appointment with id "+appointmentId+" has been "+status.name().toLowerCase();
        Email email = new Email();
        email.setRecipient(appointmentDTO.getPatient().getEmail());
        email.setSubject("Appointment Status Update");

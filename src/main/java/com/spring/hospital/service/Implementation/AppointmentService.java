@@ -109,7 +109,7 @@ public class AppointmentService implements IAppointmentService {
                     .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
                     .collect(Collectors.toList());
         }
-        List<Appointment> appointments = appointmentRepository.findByDoctorNameContainingIgnoreCaseAndPatientNameContainingIgnoreCase(doctorName != null ? doctorName : "", patientName != null ? patientName : "" );
+        List<Appointment> appointments = appointmentRepository.findByDoctor_FullNameContainingIgnoreCaseAndPatient_FullNameContainingIgnoreCase(doctorName != null ? doctorName : "", patientName != null ? patientName : "" );
         return appointments.stream()
                 .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
                 .collect(Collectors.toList());
