@@ -1,6 +1,8 @@
 package com.spring.hospital.controller;
 
+import com.spring.hospital.dto.DoctorDTO;
 import com.spring.hospital.dto.SpecialtyDTO;
+import com.spring.hospital.entity.Doctor;
 import com.spring.hospital.service.ISpecialtyService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,6 +13,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,5 +57,14 @@ public class SpecialtyController {
         List<SpecialtyDTO> specialtyDTOs = specialtyService.getSpecialties();
         return new ResponseEntity<>(specialtyDTOs, HttpStatus.OK);
     }
+
+    @GetMapping("/{specialityName}/doctors")
+    public ResponseEntity<Collection<DoctorDTO>> getDoctorsBySpeciality(@PathVariable("specialityName") String specialityName) {
+        Collection<DoctorDTO> doctorDTOs = specialtyService.getDoctorsBySpecialityName(specialityName);
+        return new ResponseEntity<>(doctorDTOs, HttpStatus.OK);
+    }
+
+
+
 }
 

@@ -1,8 +1,10 @@
 package com.spring.hospital.service.Implementation;
 
 
+import com.spring.hospital.dto.DoctorDTO;
 import com.spring.hospital.dto.PatientDTO;
 import com.spring.hospital.dto.SpecialtyDTO;
+import com.spring.hospital.entity.Doctor;
 import com.spring.hospital.entity.Patient;
 import com.spring.hospital.entity.Specialty;
 import com.spring.hospital.repository.SpecialtyRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,4 +78,17 @@ public class SpecialtyService implements ISpecialtyService {
                 .orElseThrow(EntityNotFoundException::new);
         return modelMapper.map(specialty, SpecialtyDTO.class);
     }
+
+    @Override
+    public Collection<DoctorDTO> getDoctorsBySpecialityName(String specialityName) {
+        Specialty speciality = specialtyRepository.findByNameContainingIgnoreCase(specialityName)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid speciality name"));
+        Collection<Doctor> doctors = speciality.getDoctors();
+        List<DoctorDTO> doctorDTOs = doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
+
+        return doctorDTOs;
+    }
+
 }

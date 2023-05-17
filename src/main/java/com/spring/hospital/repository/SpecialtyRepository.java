@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface SpecialtyRepository extends JpaRepository<Specialty,Long> {
     Optional<Specialty> findByNameContainingIgnoreCase(String name);
+
 }
