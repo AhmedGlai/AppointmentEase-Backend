@@ -1,6 +1,8 @@
 package com.spring.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +27,9 @@ public class Specialty {
     @Column(name = "speciality_description", nullable = true)
     private String description;
 
-
     @OneToMany(mappedBy = "specialty", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonManagedReference
     private Collection<Doctor> doctors;
 }
 

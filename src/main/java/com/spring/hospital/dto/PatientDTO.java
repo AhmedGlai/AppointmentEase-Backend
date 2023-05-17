@@ -17,9 +17,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PatientDTO {
     private Long id;
-    private String firstname;
-    private String lastname;
-    private LocalDate dateOfBirth;
+    private String fullName;
+    private Date dateOfBirth;
     private String email;
     private String address;
     private String gender;

@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@Secured({"ADMIN"})
 @RequestMapping("/api/doctors")
+@Secured({"ADMIN"})
 public class DoctorController {
 
     @Autowired
@@ -26,11 +26,6 @@ public class DoctorController {
     @Autowired
     private final ModelMapper modelMapper;
 
-
-
-
-
-    @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         List<DoctorDTO> doctors = doctorService.getAllDoctors();
@@ -38,7 +33,7 @@ public class DoctorController {
     }
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+
     @GetMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long doctorId) {
         DoctorDTO doctorDTO = doctorService.getOneDoctor(doctorId);
@@ -46,7 +41,7 @@ public class DoctorController {
     }
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+
     @PostMapping("/add")
     public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO doctorDTO) {
          DoctorDTO  savedDoctorDTO = doctorService.saveDoctor(doctorDTO);
@@ -54,7 +49,7 @@ public class DoctorController {
     }
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+
     @PostMapping("/addList")
     public ResponseEntity<List<DoctorDTO>> saveDoctors(@RequestBody List<DoctorDTO> doctorDTOs) {
         List<DoctorDTO> savedDoctorDTOs =  doctorService.saveDoctors(doctorDTOs);
@@ -62,7 +57,7 @@ public class DoctorController {
     }
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+
     @PutMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> updateDoctorById(@PathVariable Long doctorId, @RequestBody DoctorDTO doctorDTO) {
         DoctorDTO doctor = doctorService.getOneDoctor(doctorId);
@@ -71,17 +66,28 @@ public class DoctorController {
     }
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+
     @DeleteMapping("/{doctorId}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long doctorId) {
         doctorService.deleteDoctor(doctorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    /*
     @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/specialty/{specialtyId}")
     public List<DoctorDTO> getDoctorsBySpecialtyId(@PathVariable Long specialtyId) {
         return doctorService.getDoctorsBySpecialtyId(specialtyId);
     }
+
+     */
+/*
+    @GetMapping("/specialty/{specialityName}")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialityName(@PathVariable("specialityName") String specialityName) {
+        List<DoctorDTO> doctors = doctorService.getDoctorsBySpecialityName(specialityName);
+        return ResponseEntity.ok(doctors);
+    }
+
+ */
 
 
 }
