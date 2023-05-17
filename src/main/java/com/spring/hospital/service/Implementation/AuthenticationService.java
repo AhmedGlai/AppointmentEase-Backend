@@ -31,6 +31,8 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+
+    //Authentication Based
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -80,11 +82,13 @@ public class AuthenticationService {
             doctor.setDateOfBirth(parseDate(registerRequest.getDateOfBirth(), "yyyy-MM-dd"));
             doctor.setUser(user);
             // Retrieve the Specialty entity using the specialtyName
-            Specialty specialty = specialtyRepository.findByName(registerRequest.getSpecialtyName())
+            Specialty specialty = specialtyRepository.findByNameContainingIgnoreCase(registerRequest.getSpecialtyName())
                     .orElseThrow(() -> new IllegalArgumentException("Invalid specialty name"));
 
             // Associate the retrieved Specialty with the Doctor
             doctor.setSpecialty(specialty);
+            /*ADD the doctor to the speciality List*/
+            specialty.getDoctors().add(doctor);
             // Save the doctor
             doctorRepository.save(doctor);
         } else if (registerRequest.getRole() == UserRole.PATIENT) {

@@ -9,17 +9,15 @@ import java.util.Collection;
 import java.util.Date;
 
 @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
     public class DoctorDTO {
         private Long id;
-        private String firstname;
-        private String lastname;
+        private String fullName;
         private Date dateOfBirth;
         private String email;
         private String phone;
         private String address;
-
         private SpecialtyDTO specialty;
     }
 

@@ -13,4 +13,6 @@ public interface ISpecialtyService {
     List<SpecialtyDTO> saveSpecialties(List<SpecialtyDTO> specialties);
 
     SpecialtyDTO getOneSpecialty(Long specialtyId);
+
+
 }

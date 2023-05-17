@@ -14,7 +14,8 @@ public interface IDoctorService {
         public List<DoctorDTO> saveDoctors(List<DoctorDTO> doctors);
         DoctorDTO getOneDoctor(Long doctorID);
 
-        List<DoctorDTO> getDoctorsBySpecialtyId(Long specialtyId);
+       // List<DoctorDTO> getDoctorsBySpecialityName(String specialityName);
+
 
 
 }

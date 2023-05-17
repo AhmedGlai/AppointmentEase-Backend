@@ -23,10 +23,8 @@ public class RegisterRequest {
     private String address;
     private Gender gender;
     private String phone;
-
     /*Image*/
     private MultipartFile profileImage;
-
     /*Doctor Related only*/
     private String specialtyName;
 

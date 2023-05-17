@@ -36,13 +36,14 @@ public class Doctor {
     @Column(name = "doctor_phone",unique = true)
     private String phone;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+
+    @JsonBackReference("specialty")
     private Specialty specialty;
     @OneToMany(mappedBy="doctor",fetch = FetchType.LAZY)
-    @JsonManagedReference("doctor")
     private Collection<Appointment> appointments;
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }

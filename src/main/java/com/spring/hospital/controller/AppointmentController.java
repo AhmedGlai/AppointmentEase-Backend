@@ -44,7 +44,7 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PostAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/get")
+    @GetMapping("")
     public ResponseEntity<List<AppointmentDTO>> getAllAppointments() {
         return new ResponseEntity<>(appointmentService.getAppointments(), HttpStatus.OK);
     }
@@ -130,6 +130,8 @@ public class AppointmentController {
         emailService.sendEmail(notificationEmail);
         return ResponseEntity.ok("Email sent successfully");
     }
+
+
 
 
 }

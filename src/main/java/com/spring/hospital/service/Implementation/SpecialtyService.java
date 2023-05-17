@@ -1,7 +1,9 @@
 package com.spring.hospital.service.Implementation;
 
 
+import com.spring.hospital.dto.PatientDTO;
 import com.spring.hospital.dto.SpecialtyDTO;
+import com.spring.hospital.entity.Patient;
 import com.spring.hospital.entity.Specialty;
 import com.spring.hospital.repository.SpecialtyRepository;
 import com.spring.hospital.service.ISpecialtyService;
@@ -11,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +46,8 @@ public class SpecialtyService implements ISpecialtyService {
     public void deleteSpecialty(Long specialtyId) {
         specialtyRepository.deleteById(specialtyId);
     }
+
+
 
     @Override
     public List<SpecialtyDTO> getSpecialties() {
