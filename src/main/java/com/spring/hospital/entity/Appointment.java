@@ -29,14 +29,17 @@ public class Appointment {
     private String reason;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference("doctor")
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference("patient")
+    @JoinColumn(name="patient_id")
     private Patient patient;
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @JsonBackReference("appointment")
     private Consultation consultation;
 
 

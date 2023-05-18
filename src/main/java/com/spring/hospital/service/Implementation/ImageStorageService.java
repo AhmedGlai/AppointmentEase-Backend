@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 public class ImageStorageService {
-    private static final String UPLOAD_DIR = "C:/Users/Firas/OneDrive/Bureau/Projects/ProjetFederateur/Hospital-Backend/images";
+    private static final String UPLOAD_DIR = "C:/Users/extra/Desktop/backend/pfe_backend/Hospital-Backend/images";
     @Autowired
     private UserService userService;
 

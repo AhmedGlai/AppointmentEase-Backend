@@ -3,6 +3,7 @@ package com.spring.hospital.dto;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.spring.hospital.ennumeration.Gender;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -21,9 +22,10 @@ public class PatientDTO {
     private Date dateOfBirth;
     private String email;
     private String address;
-    private String gender;
+    private Gender gender;
     private String phone;
     private MedicalHistoryDTO medicalHistory;
+    private Long userId;
 
 
 

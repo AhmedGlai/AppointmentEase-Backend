@@ -29,7 +29,6 @@ public class PatientController {
     @PostMapping("/add")
     public ResponseEntity<PatientDTO> createPatient(@RequestBody PatientDTO patientDTO) {
         PatientDTO savedPatientDTO = patientService.savePatient(patientDTO);
-
         return new ResponseEntity<>(savedPatientDTO, HttpStatus.CREATED);
     }
 
@@ -57,5 +56,11 @@ public class PatientController {
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> patientDTOs = patientService.getPatients();
         return new ResponseEntity<>(patientDTOs, HttpStatus.OK);
+    }
+    @PutMapping("edit/{id}")
+    public ResponseEntity<PatientDTO> editPatient(@PathVariable Long id, @RequestBody PatientDTO patientDTO) {
+        patientDTO.setId(id);
+        PatientDTO updatedPatientDTO = patientService.editPatient(patientDTO);
+        return new ResponseEntity<>(updatedPatientDTO, HttpStatus.OK);
     }
 }

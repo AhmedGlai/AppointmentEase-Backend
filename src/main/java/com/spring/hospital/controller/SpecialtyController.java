@@ -33,6 +33,7 @@ public class SpecialtyController {
         return new ResponseEntity<>(savedSpecialtyDTO, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/addList")
     public ResponseEntity<List<SpecialtyDTO>> saveSpecialties(@RequestBody List<SpecialtyDTO> specialtyDTOs) {
         List<SpecialtyDTO> savedSpecialtyDTOs = specialtyService.saveSpecialties(specialtyDTOs);

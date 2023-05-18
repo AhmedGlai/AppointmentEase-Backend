@@ -30,7 +30,6 @@ public class ConsultationController {
     @PostAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Consultation> saveConsultation(@RequestBody Consultation consultation) {
-        //consultation.getAppointment().setStatusAPT(StatusAPT.DONE);
         return new ResponseEntity<>(consultationService.saveConsultation(consultation), HttpStatus.CREATED);
     }
     @PostAuthorize("hasAuthority('ADMIN')")

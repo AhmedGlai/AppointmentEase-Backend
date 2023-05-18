@@ -25,9 +25,11 @@ public class Consultation {
     @Column(name = "rapport")
     private String rapport;
 
-   // @JsonManagedReference("consultation")
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_id")
+    @JsonManagedReference("appointment")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Appointment appointment;
 }

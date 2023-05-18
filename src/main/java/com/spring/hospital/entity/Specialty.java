@@ -28,8 +28,7 @@ public class Specialty {
     private String description;
 
     @OneToMany(mappedBy = "specialty", fetch = FetchType.LAZY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonManagedReference
+    @JsonManagedReference("specialty")
     private Collection<Doctor> doctors;
 }
 

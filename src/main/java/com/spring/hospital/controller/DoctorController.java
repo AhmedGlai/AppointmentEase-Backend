@@ -2,6 +2,7 @@ package com.spring.hospital.controller;
 
 import com.spring.hospital.dto.DoctorDTO;
 import com.spring.hospital.entity.Doctor;
+import com.spring.hospital.repository.DoctorRepository;
 import com.spring.hospital.service.IDoctorService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,8 +32,6 @@ public class DoctorController {
         List<DoctorDTO> doctors = doctorService.getAllDoctors();
         return new ResponseEntity<>(doctors, HttpStatus.OK);
     }
-
-
 
     @GetMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long doctorId) {

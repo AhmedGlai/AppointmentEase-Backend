@@ -24,27 +24,38 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "patient_name")
     private String fullName;
+
     @Column(name = "birth_date")
     private Date dateOfBirth;
+
     @Column(name = "patient_email",unique = true)
     private String email;
+
     @Column(name = "patient_address")
     private String address;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     @Column(name = "patient_phone",unique = true)
     private String phone;
 
 
     @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     @JsonManagedReference("patient")
-    private Collection<Appointment> appointments;
-    @OneToOne(cascade = CascadeType.ALL)
+    private Collection<Appointment> appointment;
+
+    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @JoinColumn(name = "medicalHistoryId")
     private MedicalHistory medicalHistory;
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+
+
 }

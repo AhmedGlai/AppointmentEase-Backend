@@ -23,27 +23,37 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "doctor_name")
     private String fullName;
+
     @Column(name = "birth_date")
     private Date dateOfBirth;
+
     @Column(name = "doctor_email",unique = true)
     private String email;
+
     @Column(name = "doctor_address")
     private String address;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     @Column(name = "doctor_phone",unique = true)
     private String phone;
-    @ManyToOne(fetch = FetchType.LAZY)
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference("specialty")
     private Specialty specialty;
+
     @OneToMany(mappedBy="doctor",fetch = FetchType.LAZY)
-    private Collection<Appointment> appointments;
+    @JsonManagedReference("doctor")
+    private Collection<Appointment> appointment;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+
 }

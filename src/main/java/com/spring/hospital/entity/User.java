@@ -1,5 +1,6 @@
 package com.spring.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.hospital.ennumeration.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,13 +25,18 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
     @Column(nullable = false)
     private String fullName;
+
     @Column(nullable = false,unique = true)
     private String email;
+
     private String profileImage;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
