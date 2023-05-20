@@ -14,7 +14,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tbl_Appointment")
+@Table(name="Appointment")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tbl_Doctor")
+@Table(name="Doctor")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,9 +50,9 @@ public class Doctor {
     @JsonManagedReference("doctor")
     private Collection<Appointment> appointment;
 
-    @Column(name = "created_at")
+    @Column(name = "Available_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date AvalabilDate;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -61,7 +61,7 @@ public class Doctor {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        AvalabilDate = new Date();
     }
 
 

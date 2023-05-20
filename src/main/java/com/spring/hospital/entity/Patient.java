@@ -19,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tbl_Patient")
+@Table(name="Patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

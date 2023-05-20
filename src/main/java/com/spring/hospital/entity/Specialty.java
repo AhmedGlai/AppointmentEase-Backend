@@ -15,7 +15,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_Speciality")
+@Table(name = "Speciality")
 public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

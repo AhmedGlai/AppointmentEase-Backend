@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tbl_MedicalHistory")
+@Table(name="MedicalHistory")
 public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
