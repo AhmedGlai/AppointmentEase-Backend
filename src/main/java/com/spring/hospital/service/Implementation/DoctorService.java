@@ -65,6 +65,14 @@ public class DoctorService implements IDoctorService {
         return modelMapper.map(doctor, DoctorDTO.class);
     }
 
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecialityName(String specialityName) {
+        List<Doctor> doctors = doctorRepository.findBySpecialtyName(specialityName);
+        return doctors.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 /*
     @Override

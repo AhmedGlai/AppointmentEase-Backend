@@ -27,38 +27,41 @@ public class SpecialtyController {
     private final ModelMapper modelMapper;
 
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/add")
     public ResponseEntity<SpecialtyDTO> createSpecialty(@RequestBody SpecialtyDTO specialtyDTO) {
         SpecialtyDTO savedSpecialtyDTO = specialtyService.saveSpecialty(specialtyDTO);
         return new ResponseEntity<>(savedSpecialtyDTO, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/addList")
     public ResponseEntity<List<SpecialtyDTO>> saveSpecialties(@RequestBody List<SpecialtyDTO> specialtyDTOs) {
         List<SpecialtyDTO> savedSpecialtyDTOs = specialtyService.saveSpecialties(specialtyDTOs);
         return new ResponseEntity<>(savedSpecialtyDTOs, HttpStatus.CREATED);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSpecialty(@PathVariable Long id) {
         specialtyService.deleteSpecialty(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{id}")
     public ResponseEntity<SpecialtyDTO> getOneSpecialty(@PathVariable Long id) {
         SpecialtyDTO specialtyDTO = specialtyService.getOneSpecialty(id);
         return new ResponseEntity<>(specialtyDTO, HttpStatus.OK);
     }
 
-
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("")
     public ResponseEntity<List<SpecialtyDTO>> getSpecialties() {
         List<SpecialtyDTO> specialtyDTOs = specialtyService.getSpecialties();
         return new ResponseEntity<>(specialtyDTOs, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{specialityName}/doctors")
     public ResponseEntity<Collection<DoctorDTO>> getDoctorsBySpeciality(@PathVariable("specialityName") String specialityName) {
         Collection<DoctorDTO> doctorDTOs = specialtyService.getDoctorsBySpecialityName(specialityName);

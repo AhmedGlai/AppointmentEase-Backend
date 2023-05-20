@@ -30,5 +30,19 @@ public class MedicalHistory {
     @Column(name = "allergies")
     private String allergies;
 
+    @Column(name = "surgeries")
+    private String surgeries;
+
+    @Column(name = "medications")
+    private String medications;
+
+    @Column(name = "family_medical_history")
+    private String familyMedicalHistory;
+
+    @Column(name = "immunization_records")
+    private String immunizationRecords;
+
+
+
 
 }

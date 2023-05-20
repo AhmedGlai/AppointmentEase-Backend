@@ -50,10 +50,19 @@ public class Doctor {
     @JsonManagedReference("doctor")
     private Collection<Appointment> appointment;
 
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
 
 }

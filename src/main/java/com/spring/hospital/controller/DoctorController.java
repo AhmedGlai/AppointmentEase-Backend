@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/doctors")
-@Secured({"ADMIN"})
 public class DoctorController {
 
     @Autowired
@@ -27,12 +26,14 @@ public class DoctorController {
     @Autowired
     private final ModelMapper modelMapper;
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         List<DoctorDTO> doctors = doctorService.getAllDoctors();
         return new ResponseEntity<>(doctors, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long doctorId) {
         DoctorDTO doctorDTO = doctorService.getOneDoctor(doctorId);
@@ -41,6 +42,7 @@ public class DoctorController {
 
 
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/add")
     public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO doctorDTO) {
          DoctorDTO  savedDoctorDTO = doctorService.saveDoctor(doctorDTO);
@@ -49,6 +51,7 @@ public class DoctorController {
 
 
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/addList")
     public ResponseEntity<List<DoctorDTO>> saveDoctors(@RequestBody List<DoctorDTO> doctorDTOs) {
         List<DoctorDTO> savedDoctorDTOs =  doctorService.saveDoctors(doctorDTOs);
@@ -57,6 +60,7 @@ public class DoctorController {
 
 
 
+    @Secured({"ROLE_DOCTOR"})
     @PutMapping("/{doctorId}")
     public ResponseEntity<DoctorDTO> updateDoctorById(@PathVariable Long doctorId, @RequestBody DoctorDTO doctorDTO) {
         DoctorDTO doctor = doctorService.getOneDoctor(doctorId);
@@ -65,7 +69,7 @@ public class DoctorController {
     }
 
 
-
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{doctorId}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long doctorId) {
         doctorService.deleteDoctor(doctorId);
@@ -79,14 +83,15 @@ public class DoctorController {
     }
 
      */
-/*
+
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/specialty/{specialityName}")
     public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialityName(@PathVariable("specialityName") String specialityName) {
         List<DoctorDTO> doctors = doctorService.getDoctorsBySpecialityName(specialityName);
         return ResponseEntity.ok(doctors);
     }
 
- */
+
 
 
 }

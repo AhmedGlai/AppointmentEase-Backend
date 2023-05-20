@@ -18,6 +18,7 @@ import java.util.Date;
         private String email;
         private String phone;
         private String address;
+        private Date createdAt;
         private SpecialtyDTO specialty;
     }
 

@@ -27,29 +27,30 @@ public class ConsultationController {
 
 
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN","ROLE_DOCTOR"})
     @PostMapping("/add")
     public ResponseEntity<Consultation> saveConsultation(@RequestBody Consultation consultation) {
         return new ResponseEntity<>(consultationService.saveConsultation(consultation), HttpStatus.CREATED);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+
+    @Secured({"ROLE_ADMIN","ROLE_DOCTOR"})
     @PutMapping("/update")
     public ResponseEntity<Consultation> editConsultation(@RequestBody Consultation consultation) {
         return new ResponseEntity<>(consultationService.editConsultation(consultation), HttpStatus.OK);
     }
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{consultationId}")
     public ResponseEntity<Void> deleteConsultation(@PathVariable Long consultationId) {
         consultationService.deleteConsultation(consultationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("")
     public ResponseEntity<List<Consultation>> getConsultations() {
         return new ResponseEntity<>(consultationService.getConsultations(), HttpStatus.OK);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{consultationId}")
     public ResponseEntity<Consultation> getOneConsultation(@PathVariable Long consultationId) {
         Consultation consultation = consultationService.getOneConsultation(consultationId);

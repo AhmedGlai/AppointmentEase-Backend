@@ -17,32 +17,31 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/medical-histories")
-@Secured({"ADMIN", "PATIENT","DOCTOR"})
 @AllArgsConstructor
 public class MedicalHistoryController {
 
     private final IMedicalHistoryService medicalHistoryService;
     private final ModelMapper modelMapper;
 
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_DOCTOR"})
     @PostMapping("/add")
     public ResponseEntity<MedicalHistoryDTO> createMedicalHistory(@RequestBody MedicalHistoryDTO medicalHistoryDTO) {
         MedicalHistoryDTO savedMedicalHistoryDTO = medicalHistoryService.saveMedicalHistory(medicalHistoryDTO);
         return new ResponseEntity<>(savedMedicalHistoryDTO, HttpStatus.CREATED);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMedicalHistory(@PathVariable Long id) {
         medicalHistoryService.deleteMedicalHistory(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{id}")
     public ResponseEntity<MedicalHistoryDTO> getOneMedicalHistory(@PathVariable Long id) {
         MedicalHistoryDTO medicalHistoryDTO = medicalHistoryService.getOneMedicalHistory(id);
         return new ResponseEntity<>(medicalHistoryDTO, HttpStatus.OK);
     }
-    @PostAuthorize("hasAuthority('ADMIN')")
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("")
     public ResponseEntity<List<MedicalHistoryDTO>> getMedicalHistories() {
         List<MedicalHistoryDTO> medicalHistoryDTOs = medicalHistoryService.getMedicalHistories();

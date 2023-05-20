@@ -13,6 +13,7 @@ public interface IDoctorService {
         List<DoctorDTO>getAllDoctors();
         public List<DoctorDTO> saveDoctors(List<DoctorDTO> doctors);
         DoctorDTO getOneDoctor(Long doctorID);
+        List<DoctorDTO> getDoctorsBySpecialityName(String specialityName);
 
 
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @PostMapping("/{userId}/profile-image")
     public ResponseEntity<String> uploadProfileImage(
             @PathVariable("userId") Long userId,
@@ -32,6 +34,7 @@ public class UserController {
         return ResponseEntity.ok("Profile image uploaded successfully");
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{userId}/profile-image")
     public ResponseEntity<Resource> getProfileImage(@PathVariable("userId") Long userId) {
         User user = userService.getOneUser(userId);

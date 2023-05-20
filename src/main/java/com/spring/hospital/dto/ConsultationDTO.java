@@ -14,7 +14,7 @@ import java.util.Date;
         private Long id;
         private Date dateConsultation;
         private String rapport;
-        private AppointmentDTO appointment;
+        private AppointmentDTO appointmentId;
     }
 
 

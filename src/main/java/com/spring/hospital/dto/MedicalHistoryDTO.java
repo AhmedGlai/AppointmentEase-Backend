@@ -9,5 +9,9 @@ public class MedicalHistoryDTO {
     private Double weight;
     private String bloodPressure;
     private String allergies;
+    private String surgeries;
+    private String medications;
+    private String familyMedicalHistory;
+    private String immunizationRecords;
 
 }

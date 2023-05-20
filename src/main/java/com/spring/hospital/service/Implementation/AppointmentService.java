@@ -14,7 +14,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +33,17 @@ public class AppointmentService implements IAppointmentService {
         Appointment savedAppointment = appointmentRepository.save(appointment);
         return modelMapper.map(savedAppointment, AppointmentDTO.class);
     }
+    public LocalDate getLastAppointmentDateByDoctor(Long doctorId) {
+        Optional<Appointment> lastAppointmentOptional = appointmentRepository.findTopByDoctorIdOrderByDateDesc(doctorId);
+
+        if (lastAppointmentOptional.isPresent()) {
+            Appointment lastAppointment = lastAppointmentOptional.get();
+            return lastAppointment.getDate();
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public AppointmentDTO editAppointment(AppointmentDTO appointmentDTO) {
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);

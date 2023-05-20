@@ -26,6 +26,7 @@ public class PatientController {
     private final ModelMapper modelMapper;
 
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT"})
     @PostMapping("/add")
     public ResponseEntity<PatientDTO> createPatient(@RequestBody PatientDTO patientDTO) {
         PatientDTO savedPatientDTO = patientService.savePatient(patientDTO);
@@ -33,30 +34,34 @@ public class PatientController {
     }
 
 
-
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/addList")
     public ResponseEntity<List<PatientDTO>> savePatients(@RequestBody List<PatientDTO> patientDTOs) {
         List<PatientDTO> savedPatientDTOs = patientService.savePatients(patientDTOs);
         return new ResponseEntity<>(savedPatientDTOs, HttpStatus.CREATED);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("/{id}")
     public ResponseEntity<PatientDTO> getOnePatient(@PathVariable Long id) {
         PatientDTO patientDTO = patientService.getOnePatient(id);
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_PATIENT","ROLE_DOCTOR"})
     @GetMapping("")
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> patientDTOs = patientService.getPatients();
         return new ResponseEntity<>(patientDTOs, HttpStatus.OK);
     }
+    @Secured({"ROLE_PATIENT"})
     @PutMapping("edit/{id}")
     public ResponseEntity<PatientDTO> editPatient(@PathVariable Long id, @RequestBody PatientDTO patientDTO) {
         patientDTO.setId(id);

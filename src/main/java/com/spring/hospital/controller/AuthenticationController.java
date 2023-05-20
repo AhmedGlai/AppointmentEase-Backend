@@ -18,6 +18,7 @@ import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @ModelAttribute RegisterRequest registerRequest

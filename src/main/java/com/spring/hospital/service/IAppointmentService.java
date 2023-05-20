@@ -3,9 +3,8 @@ package com.spring.hospital.service;
 import com.spring.hospital.dto.AppointmentDTO;
 import com.spring.hospital.dto.PatientDTO;
 import com.spring.hospital.ennumeration.StatusAPT;
-import com.spring.hospital.entity.Appointment;
-import com.spring.hospital.entity.Patient;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IAppointmentService {
@@ -25,6 +24,6 @@ public interface IAppointmentService {
     List<AppointmentDTO> getAppointmentsByDoctorId(Long doctorId);
     List<AppointmentDTO> searchAppointments(String patientName, String doctorName);
 
-
+    public LocalDate getLastAppointmentDateByDoctor(Long doctorId);
 
 }
